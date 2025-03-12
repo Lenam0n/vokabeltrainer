@@ -2,6 +2,8 @@ import React, { useState, FormEvent } from "react";
 import styles from "../styles/VocabForm.module.css";
 import { VocabFormProps } from "../interfaces/Vocab";
 import TranslationDirectionComponent from "./TranslationDirection";
+import UtilityButton from "./UtilityButton";
+import { useTrainer } from "../hook/TrainerContext";
 
 const VocabForm: React.FC<VocabFormProps> = ({
   currentVocab,
@@ -11,8 +13,9 @@ const VocabForm: React.FC<VocabFormProps> = ({
   direction,
 }) => {
   const [userAnswer, setUserAnswer] = useState("");
+  const { resetTrainer } = useTrainer();
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSubmit(userAnswer);
     setUserAnswer("");
@@ -40,9 +43,10 @@ const VocabForm: React.FC<VocabFormProps> = ({
           autoFocus
           required
         />
-        <button type="submit" className={styles.button}>
-          Antwort prüfen
-        </button>
+        <div className={styles.buttonContainer}>
+          <UtilityButton label="Quiz neu starten" onClick={resetTrainer} />
+          <UtilityButton label="Antwort prüfen" type="submit" />
+        </div>
       </form>
       <p className={styles.counter}>
         {currentIndex + 1} von {total}

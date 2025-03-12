@@ -54,3 +54,8 @@
   font-size: 0.9rem;
   color: var(--text-color);
 }
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-evenly;
+}
